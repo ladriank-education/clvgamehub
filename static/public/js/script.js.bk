@@ -1,0 +1,39 @@
+const urlApi = 'http://192.168.1.10:7002/api/juegos';
+
+fetch(urlApi)
+  .then(response => response.json())
+  .then(data => {
+    const folderList = document.getElementById('desktop');
+    for (let i = 0; i < data.length; i++) {
+      const folderName = data[i].nombre;
+      const folderLink = data[i].index;
+      const folderFavicon = data[i].favicon;
+
+      const folderIconDiv = document.createElement('div');
+      folderIconDiv.classList.add('folder-icon');
+
+      // folderIconDiv.style.backgroundImage = 'url("'+ folderFavicon +'")';
+
+      // folderIconDiv.title = folderName;
+      // folderIconDiv.addEventListener('click', function() {
+      //   window.location.assign(folderLink);
+      // });
+      linkDiv = document.createElement('a');
+      linkDiv.href = folderLink;
+      linkDiv.target= "_blank";
+
+      imagenDiv = document.createElement('img');
+      imagenDiv.src = folderFavicon;
+      imagenDiv.alt = folderName.replace(/_/g, " ").toUpperCase();
+
+      linkDiv.appendChild(imagenDiv);
+
+      nombreDiv = document.createElement('h2');
+      nombreDiv.textContent = folderName.replace(/_/g, " ").toUpperCase();
+
+      folderIconDiv.appendChild(linkDiv);
+      folderIconDiv.appendChild(nombreDiv);
+      folderList.appendChild(folderIconDiv);
+    }
+  })
+  .catch(error => console.error(error));
