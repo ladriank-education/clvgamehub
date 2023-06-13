@@ -5,8 +5,7 @@ const User = require('../models/User')(db, DataTypes);
 
 /**
  * 
- * @return User[]
- * 
+ * @returns {Object[]}
  **/
 const getAll = async () => {
 	try	{
@@ -20,8 +19,8 @@ const getAll = async () => {
 
 /**
  * 
- * @param id
- * @return User
+ * @param {number} id
+ * @return {User}
  * 
  **/
 const getById = async (id) => {
@@ -38,10 +37,9 @@ const getById = async (id) => {
 
 /**
  * 
- * @param nickname
- * @return User
- * 
- **/
+ * @param {string} nickname 
+ * @returns {Object}
+ */
 const getByNickname = async (nickname) => {
 	try
 	{
@@ -62,9 +60,9 @@ const getByNickname = async (nickname) => {
 
 /**
  * 
- * @param nickname
- * @param pwd
- * @return User
+ * @param {string} nickname
+ * @param {string} pwd
+ * @return {Object}
  * 
  **/
 const login = async (nickname, pwd) => {
@@ -89,9 +87,9 @@ const login = async (nickname, pwd) => {
 
 /**
  * 
- * @param nickname
- * @param pwd
- * @return User
+ * @param {string} nickname
+ * @param {string} pwd
+ * @return {Object}
  * 
  **/
 const create = async(nickname, pwd) => {
