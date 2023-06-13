@@ -11,7 +11,7 @@ router.get('/', cors(), (request, response, next) => {
 	const id = request.query.id;
 	const nickname = request.query.nickname;
 	const pwd = request.query.pwd;
-
+	console.log('usuario/');
 	if (id) {
 		UserController.getById(id)
 		.then(function (user) {

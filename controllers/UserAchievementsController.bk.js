@@ -3,7 +3,7 @@ var DataTypes = require("sequelize").DataTypes;
 const { Op } = require("sequelize");
 const UserAchievements = require('../models/UserAchievements')(db, DataTypes);
 const Achievement = require('../models/Achievement')(db, DataTypes);
-
+const AchievementController = require('./AchievementController');
 /**
  * 
  * @param achievement_id
@@ -53,20 +53,14 @@ const getByUser = async (user_id) => {
  **/
 const getAtGameByUser = async (game_id, user_id) => {
 	try {
-		const achievement = await UserAchievements.findAll({
+		const achievement = await AchievementController.getById(game_id);
+		const user_achievement = await UserAchievements.findAll({
 			where: {
 				user_id: user_id,
+				achievement_id: achievement.id
 			},
-			include: [
-				{
-					model: Achievement,
-					where: {
-						game_id: game_id,
-					},
-				},
-          	],
 		});
-		return (achievement.length > 0) ? achievement : null;
+		return (user_achievement.length > 0) ? user_achievement : null;
 	} catch (e) {
 		throw e;
 	}

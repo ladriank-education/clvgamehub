@@ -12,7 +12,7 @@ const getAll = async () => {
 	try
 	{
 		achievement = await Achievement.findAll();
-		return achievement.length > 0 ? achievement : null;
+		return (achievement.length > 0) ? achievement : null;
 	}
 	catch (e)
 	{
@@ -29,7 +29,7 @@ const getAll = async () => {
 const getById = async (achievement_id) => {
 	try {
 		achievement = await Achievement.findByPk(achievement_id);
-		return achievement ? achievement : null;
+		return (achievement) ? achievement : null;
 	} catch (e) {
 		throw e;
 	}
@@ -52,7 +52,7 @@ const getByName = async (name) => {
 			}
 		});
 
-		return achievement ? achievement : null;
+		return (achievement) ? achievement : null;
 	}
 	catch (e)
 	{
@@ -73,7 +73,7 @@ const getByGame = async(game_id) => {
 				game_id: game_id,
 			},
 		});
-		return achievement.length > 0 ? achievement : null;
+		return (achievement.length > 0) ? achievement : null;
 	} catch (e) {
 		throw e;
 	}

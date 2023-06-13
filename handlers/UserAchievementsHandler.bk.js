@@ -11,7 +11,7 @@ const GameController = require('../controllers/GameController');
 
 router.get('/', cors(), (request, response, next) => {
 	const achievement_name = request.query.achievement;
-	const user_nickname = request.query.user;
+	const user_nickname = request.query.nickname;
 	const game_name = request.query.game;
 
 	if (achievement_name && user_nickname) {
@@ -84,7 +84,7 @@ router.get('/', cors(), (request, response, next) => {
 
 router.post('/', cors(), (request, response, next) => {
 	const achievement_name = request.body.achievement;
-	const user_nickname = request.body.user;
+	const user_nickname = request.body.nickname;
 
 	if (achievement_name && user_nickname) {
 		Promise.all([
@@ -102,7 +102,7 @@ router.post('/', cors(), (request, response, next) => {
      		if (achievement) {
      			response.status(200).json(achievement);
      		} else {
-     			response.json(500).json('message': 'Achievement could not be unlocked');
+     			response.json(500).json({'message': 'Achievement could not be unlocked'});
      		}
      	})
      	.catch(function (e) {

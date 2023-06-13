@@ -1,6 +1,7 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('User', {
+const { DataTypes } = require('sequelize');
+module.exports = function(sequelize) {
+
+	const attributes = {
 		id: {
 			autoIncrement: true,
 			type: DataTypes.INTEGER,
@@ -16,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(32),
 			allowNull: false
 		}
-	}, {
+	};
+
+	const options = {
 		sequelize,
 		tableName: 'user',
 		schema: 'public',
@@ -37,5 +40,7 @@ module.exports = function(sequelize, DataTypes) {
 			         ]
 		},
 		]
-	});
+	};
+
+	return sequelize.define('User', attributes, options);
 };

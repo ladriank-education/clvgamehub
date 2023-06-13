@@ -1,6 +1,7 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('UserAchievements', {
+const { DataTypes } = require('sequelize');
+module.exports = function(sequelize) {
+
+	const attributes = {
 		id: {
 			autoIncrement: true,
 			type: DataTypes.INTEGER,
@@ -23,7 +24,9 @@ module.exports = function(sequelize, DataTypes) {
 				key: 'id'
 			}
 		}
-	}, {
+	};
+
+	const options = {
 		sequelize,
 		tableName: 'user_achievements',
 		schema: 'public',
@@ -37,5 +40,7 @@ module.exports = function(sequelize, DataTypes) {
 			         ]
 		},
 		]
-	});
+	};
+	
+	return sequelize.define('UserAchievements', attributes, options);
 };

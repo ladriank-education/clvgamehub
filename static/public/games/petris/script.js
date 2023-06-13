@@ -1,5 +1,4 @@
 var Highsc = 0 // scoreboard.score (/api/scoreboard?game=petris&top=highsc)
-var achievements = []
 //  TODO:
 //    * touch controls
 //    * allow late piece rotation
@@ -591,11 +590,11 @@ var GM = {
 
 
 		data.score = this.ScoreCur
-		if (this.ScoreCur >= 10) {
-			data.achievements.push('logro1')
+		if (this.ScoreCur >= 5000) {
+			data.achievements.push(2)
 		}
-		if (this.ScoreCur >= 50) {
-			data.achievements.push('logro2')
+		if (this.Level >= 7) {
+			data.achievements.push(3)
 		}
 		window.parent.postMessage(data, '*');
 

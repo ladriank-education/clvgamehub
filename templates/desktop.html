@@ -7,9 +7,9 @@
 <!-- Main container -->
 {% block content %}
 
-<div id="desktop" class="row my-5 justify-content-center">
+<div id="desktop" class="row row-cols-3 my-5 justify-content-center">
     {% for game in games %}
-    <div class="col-2 text-center">
+    <div class="col text-center shadow">
         <div class="game rounded-5">
             <a href="/jugar/{{game.directory}}">
                 <img class="img-fluid" src="/static/public/games/{{game.directory}}/favicon.ico" alt="">
@@ -24,7 +24,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Información de {{game.name}}</h5>
+                <img class="icon me-3 rounded" src="/static/public/games/{{game.directory}}/favicon.ico">
+                <h5 class="modal-title"><img src="/static/public/img/icons/info-circle.svg" alt="info icon" width="32" height="32">
+Información de {{game.name}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
@@ -38,6 +40,7 @@
 </div>
 {% endfor %}
 </div>
+
 {% endblock %}
 
 

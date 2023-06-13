@@ -12,7 +12,7 @@ router.get('/', cors(), (request, response, next) => {
 	const game_name = request.query.game;
 
 	if (achievement_id) {
-		AchievementController.getById(achievement_id, next)
+		AchievementController.getById(achievement_id)
 		.then(function (achievement) {
 			if (achievement) {
 				response.status(200).json(achievement);

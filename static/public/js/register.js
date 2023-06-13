@@ -61,7 +61,7 @@
     $.fn.registerUser = function(callback) {
         $.ajax({
             method: "POST",
-            url: 'http://80.30.41.125/api/user',
+            url: 'http://80.30.41.125:8080/api/user',
             data: {nickname: $("#nickname").val(), pwd: $.fn.md5($("#password").val())},
             complete: function(xhr) {
                 callback(xhr);
@@ -97,7 +97,7 @@ $(document).ready(function(e) {
                         console.log(xhr.response.id)
                         console.log(xhr.response.nickname)
                         // $.fn.setSession('uid', xhr.user.id)
-                        $(location).prop('href','http://80.30.41.125/');
+                        $(location).prop('href','http://80.30.41.125:8080/');
                     } else {
                         alert("Wtf algo paso T.T");
                     }

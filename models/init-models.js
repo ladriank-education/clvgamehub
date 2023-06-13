@@ -1,38 +1,43 @@
-const sequelize = require('sequelize');
+const db = require('../db');
 const DataTypes = require("sequelize").DataTypes;
 
-var _Achievement = require("./Achievement");
-var _Game = require("./Game");
-var _Scoreboard = require("./Scoreboard");
-var _User = require("./User");
-var _UserAchievements = require("./UserAchievements");
+const _Achievement = require("./Achievement");
+const _Game = require("./Game");
+const _Scoreboard = require("./Scoreboard");
+const _User = require("./User");
+const _UserAchievements = require("./UserAchievements");
 
-function initModels(sequelize) {
-  var Achievement = _Achievement(sequelize, DataTypes);
-  var Game = _Game(sequelize, DataTypes);
-  var Scoreboard = _Scoreboard(sequelize, DataTypes);
-  var User = _User(sequelize, DataTypes);
-  var UserAchievements = _UserAchievements(sequelize, DataTypes);
+function initModels(db) {
+	const Achievement = _Achievement(db, DataTypes);
+	const Game = _Game(db, DataTypes);
+	const Scoreboard = _Scoreboard(db, DataTypes);
+	const User = _User(db, DataTypes);
+	const UserAchievements = _UserAchievements(db, DataTypes);
 
-  UserAchievements.belongsTo(Achievement, {foreignKey: "achievement_id"});
-  Achievement.hasMany(UserAchievements, {foreignKey: "achievement_id"});
-  Achievement.belongsTo(Game, {foreignKey: "game_id"});
-  Game.hasMany(Achievement, {foreignKey: "game_id"});
-  Scoreboard.belongsTo(Game, {foreignKey: "game_id"});
-  Game.hasMany(Scoreboard, {foreignKey: "game_id"});
-  Scoreboard.belongsTo(User, {foreignKey: "user_id"});
-  User.hasMany(Scoreboard, {foreignKey: "user_id"});
-  UserAchievements.belongsTo(User, {foreignKey: "user_id"});
-  User.hasMany(UserAchievements, {foreignKey: "user_id"});
+	UserAchievements.associate = (models) => {
+		UserAchievements.belongsTo(models.Achievement, { foreignKey: "achievement_id" });
+		UserAchievements.belongsTo(models.User, { foreignKey: "user_id" });
+	};
 
-  return {
-    Achievement,
-    Game,
-    Scoreboard,
-    User,
-    UserAchievements,
-  };
+	Achievement.associate = (models) => {
+		Achievement.belongsTo(models.Game, { foreignKey: "game_id" });
+		Game.hasMany(Achievement, { foreignKey: "game_id" });
+		Achievement.hasMany(models.UserAchievements, { foreignKey: "achievement_id" });
+	};
+
+	Game.associate = (models) => {
+		Game.hasMany(models.Achievement, { foreignKey: "game_id" });
+		Game.belongsTo(models.Scoreboard, { foreignKey: "game_id" });
+		Scoreboard.hasMany(Game, { foreignKey: "game_id" });
+	};
+
+	Scoreboard.associate = (models) => {
+		Scoreboard.belongsTo(models.User, { foreignKey: "user_id" });
+		User.hasMany(Scoreboard, { foreignKey: "user_id" });
+	};
+
 }
+
 module.exports = initModels;
 module.exports.initModels = initModels;
 module.exports.default = initModels;

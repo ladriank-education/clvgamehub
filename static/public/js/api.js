@@ -2,7 +2,7 @@
 	$.fn.apiGetStatusCode = function(endpoint, params, callback) {
 		$.ajax({
 			method: "GET",
-			url: `http://80.30.41.125/api/${endpoint}`,
+			url: `http://80.30.41.125:8080/api/${endpoint}`,
 			data: params,
 			complete: function(xhr) {
 				callback(xhr.status);
@@ -16,7 +16,7 @@
 	$.fn.apiGetJsonData = function(endpoint, params, callback) {
 		$.ajax({
 			method: "GET",
-			url: `http://80.30.41.125/api/${endpoint}`,
+			url: `http://80.30.41.125:8080/api/${endpoint}`,
 			data: params,
 			dataType: "json",
 		})

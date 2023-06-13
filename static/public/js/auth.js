@@ -14,7 +14,7 @@ function onDeviceReady() {
 
     titulo.addEventListener("click", function() {
         //document.getElementById('aplicacion').src='http://localhost/ejemplo_escritorio/escritorio2.html';
-        document.getElementById('aplicacion').src='http://80.30.41.125/';
+        document.getElementById('aplicacion').src='http://80.30.41.125:8080/';
     });
 }
 
@@ -41,7 +41,7 @@ function onDeviceReady() {
         
 //         document.getElementById('deviceready').classList.add('ready');
 
-//         document.getElementById('aplicacion').src='http://80.30.41.125/';
+//         document.getElementById('aplicacion').src='http://80.30.41.125:8080/';
 //         //document.getElementById('aplicacion').src='http://localhost/ejemplo_escritorio/escritorio2.html';
 //     } else {
 //         // Inicio de sesión fallido, mostrar un mensaje de error
@@ -78,7 +78,7 @@ function onDeviceReady() {
                 
 //         document.getElementById('deviceready').classList.add('ready');
 
-//         document.getElementById('aplicacion').src='http://80.30.41.125/';
+//         document.getElementById('aplicacion').src='http://80.30.41.125:8080/';
 //         //document.getElementById('aplicacion').src='http://localhost/ejemplo_escritorio/escritorio2.html';
 //     } else {
 //         // Inicio de sesión fallido, mostrar un mensaje de error
