@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="clvgamehub.test" schema="public" type="PostgreSQL - 15.3 (Ubuntu 15.3-1.pgdg22.04+1)">
+   <sequences>
+      <sequence increment="1" name="achievement_id_seq" startValue="1"/>
+      <sequence increment="1" name="game_id_seq" startValue="1"/>
+      <sequence increment="1" name="scoreboard_id_seq" startValue="1"/>
+      <sequence increment="1" name="user_achievements_id_seq" startValue="1"/>
+      <sequence increment="1" name="user_id_seq" startValue="1"/>
+   </sequences>
+   <tables>
+      <table name="achievement" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('achievement_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="achievement_id" foreignKey="achievement_fk1" implied="false" onDeleteCascade="true" schema="public" table="user_achievements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="false" remarks="" size="90" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="game_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="game_fk1" implied="false" onDeleteCascade="true" schema="public" table="game"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="achievement_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="game" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('game_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="game_id" foreignKey="game_fk1" implied="false" onDeleteCascade="true" schema="public" table="achievement"/>
+            <child column="game_id" foreignKey="game_fk2" implied="false" onDeleteCascade="true" schema="public" table="scoreboard"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="directory" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="game_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="scoreboard" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('scoreboard_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="user_fk1" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="game_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="game_fk2" implied="false" onDeleteCascade="true" schema="public" table="game"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="score" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="scoreboard_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="user" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('user_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
+            <child column="user_id" foreignKey="user_fk1" implied="false" onDeleteCascade="true" schema="public" table="scoreboard"/>
+            <child column="user_id" foreignKey="user_fk2" implied="false" onDeleteCascade="true" schema="public" table="user_achievements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="nickname" nullable="false" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="password" nullable="false" remarks="" size="32" type="varchar" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="user_nickname_key" unique="true">
+            <column ascending="true" name="nickname"/>
+         </index>
+      </table>
+      <table name="user_achievements" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('user_achievements_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="user_fk2" implied="false" onDeleteCascade="true" schema="public" table="user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="achievement_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="achievement_fk1" implied="false" onDeleteCascade="true" schema="public" table="achievement"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_achievements_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+   <routines>
+      <routine dataAccess="MODIFIES" deterministic="false" name="unaccent(regdictionary, text)" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"/>
+         <parameters>
+            <parameter mode="IN" name="$1" type="regdictionary"/>
+            <parameter mode="IN" name="$2" type="text"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="unaccent(text)" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"/>
+         <parameters>
+            <parameter mode="IN" name="$1" type="text"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="unaccent_init(internal)" returnType="internal" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"/>
+         <parameters>
+            <parameter mode="IN" name="$1" type="internal"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="unaccent_lexize(internal, internal, internal, internal)" returnType="internal" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"/>
+         <parameters>
+            <parameter mode="IN" name="$1" type="internal"/>
+            <parameter mode="IN" name="$2" type="internal"/>
+            <parameter mode="IN" name="$3" type="internal"/>
+            <parameter mode="IN" name="$4" type="internal"/>
+         </parameters>
+      </routine>
+   </routines>
+</database>

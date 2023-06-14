@@ -1,0 +1,5 @@
+game
+user
+achievement
+scoreboard
+user_achievements
