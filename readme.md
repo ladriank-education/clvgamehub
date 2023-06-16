@@ -83,7 +83,7 @@ module.exports = settings;
 - `GET /api/achievement`
 - `GET /api/achievement?id={id}`
 - `GET /api/achievement?game={game_name}`
-- `GET /api/user/achievements?nickname={user_nickname}
+- `GET /api/user/achievements?nickname={user_nickname}`
 - `GET /api/user/achievements?nickname={user_nickname}&achievement={achievement_name}`
 - `GET /api/user/achievements?nickname={user_nickname}&game={game_name}`
 - `POST /api/user/achievements?nickname={user_nickname}&achievement={achievement_name}`
